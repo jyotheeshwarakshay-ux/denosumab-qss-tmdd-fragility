@@ -1,20 +1,10 @@
-# README draft for the curated public reproducibility repo
-(Working draft — assembled here section by section, verified against source
-before each is locked. Not the repo's actual root README yet; that gets
-created when the clean folder is assembled per the manifest in FLAG_STATUS.md.)
-
----
-
-## Estimation Fragility in Multi-Start Profile-Likelihood Assessment of Kss in a QSS-TMDD Model of Denosumab
+# Estimation Fragility in Multi-Start Profile-Likelihood Assessment of Kss in a QSS-TMDD Model of Denosumab
 
 Code and data to reproduce the analysis in "Estimation Fragility in
 Multi-Start Profile-Likelihood Assessment of Kss in a QSS-TMDD Model of
 Denosumab." Simulation, multi-start SAEM profiling, and warm-start
 diagnostics for a mass-balance-corrected QSS-TMDD model of denosumab, in R
 (nlmixr2 / rxode2).
-
-**Status:** title/one-liner matches the paper's own title exactly (see
-`paper_draft.md`); no separate claim made here.
 
 ---
 
@@ -35,9 +25,6 @@ data, consistent with the shrinkage-based limitation reported by Choi et al.
 Robust profiling therefore requires multi-start estimation with explicit
 assessment of basin and convergence consistency.
 
-**Status:** LOCKED (checked against all three of the paper's reported
-result-legs and both framing bans — no "confirms," no "one-sided").
-
 ---
 
 ## Requirements
@@ -47,9 +34,6 @@ result-legs and both framing bans — no "confirms," no "one-sided").
 - nlmixr2 7.0.1
 - dplyr 1.2.1
 - ggplot2 4.0.3 (used only by the corrected model script and the figure script)
-
-**Status:** verified directly against the installed environment and each
-script's `library()`/`suppressPackageStartupMessages()` calls, not assumed.
 
 ---
 
@@ -91,7 +75,7 @@ must run** — the first alone produces only 21 of the 35 reported fits.
 ./run_gate_test_N30_repro_remaining.sh      # the remaining grid points 1,2,3,5,6,7 x same 5 seeds -> 30 fits
 ./run_weighted_topup_corrected_repro.sh     # 4 extra seeds at low-resolution grid points -> +12 fits
 ```
-5 + 30 + 12 = **47 fits**, matching Methods 2.4's reported total exactly. All
+5 + 30 + 12 = **47 fits**, matching the paper's reported total exactly. All
 three append-and-skip to the **same** `gate_test_N30_Kss1263_repro.csv`.
 **Note the argument-signature difference, and why it exists**: the first
 script's worker (`gate_test_N30_Kss1263_repro.R`) has `kss_value <- 1.263`
@@ -138,12 +122,6 @@ generate_*_data.R (any order)
                         |                                                            
                         +----> run_warmstart_N80_Kss1263.sh (after repro profile)
 ```
-
-**Status:** every invocation, argument signature, and file dependency in this
-section was traced directly from the actual scripts (commandArgs() calls,
-results_csv paths, driver .sh loops) and cross-checked (row counts, unique
-seed sets) against the numbers reported in the paper — not written from
-memory or from script names.
 
 ---
 
@@ -203,18 +181,13 @@ suspenders: use the provided data directly, or regenerate it yourself)
 
 **Model equations and parameters**
 - `SUPPLEMENT.md` — the paper's Supplementary Material: full model
-  equations (verified against `denosumab_QSS_TMDD_v2.R`) and the
-  ground-truth parameter table (verified against Choi et al. 2025, Table 3).
-  *(To create: this is the verified content of `supplement_draft.md` S1+S2,
-  copied in — not the working file itself, which stays private.)*
+  equations and the ground-truth parameter table (sourced from Choi et al.
+  2025, Table 3).
 
 **Docs**
 - `README.md` — this file.
 - `LICENSE` — MIT.
-- `CITATION.cff` — machine-readable citation metadata. *(To create.)*
-
-**Status:** every IN file above is exactly the locked manifest recorded in
-this repo's `FLAG_STATUS.md` — nothing added or dropped here.
+- `CITATION.cff` — machine-readable citation metadata.
 
 ---
 
@@ -222,17 +195,12 @@ this repo's `FLAG_STATUS.md` — nothing added or dropped here.
 
 | Output file | Paper location |
 |---|---|
-| `multistart_results_corrected_full.csv` | Results ¶3, N=80 analysis (best OFV per grid point ~6739–8928; full set of fits extends to 11118) |
-| `multistart_results_corrected_pilot.csv` | Results ¶1 (pilot ΔOFV max 26.04, interior minimum at Kss=1.263); Figure 1 |
-| `gate_test_N30_Kss1263_repro.csv` | Results ¶1, ¶3 (repro ΔOFV: 0.00/13.38/5.82/4.73/1.39/6.65/4.36); Figure 1 |
-| `warmstart_N80_Kss1263.csv` | Results ¶3 (migration to OFV 7373.774/8031.354/8322.857) |
+| `multistart_results_corrected_full.csv` | Results, N=80 analysis (best OFV per grid point ~6739–8928; full set of fits extends to 11118) |
+| `multistart_results_corrected_pilot.csv` | Results (pilot ΔOFV max 26.04, interior minimum at Kss=1.263); Figure 1 |
+| `gate_test_N30_Kss1263_repro.csv` | Results (repro ΔOFV: 0.00/13.38/5.82/4.73/1.39/6.65/4.36); Figure 1 |
+| `warmstart_N80_Kss1263.csv` | Results (migration to OFV 7373.774/8031.354/8322.857) |
 | `fig1_corrected_two_draws.png` | Figure 1 |
 | `SUPPLEMENT.md` | Supplementary Material (equations, parameter table) |
-
-**Status:** derived directly from the run-order section above and the
-values already verified against `paper_draft.md` in earlier sessions
-(recorded in `FLAG_STATUS.md`) — not new claims, a consolidation of what's
-already been checked.
 
 ---
 
@@ -247,30 +215,11 @@ If you use this code or data, please cite:
 
 Archived code/data DOI (Zenodo): *[to be added once minted]*
 
-A `CITATION.cff` file will be added with the same information once both
-DOIs exist.
-
-**Status:** author/title exactly match the confirmed manuscript title and
-author block; journal name matches the confirmed target; both DOI fields
-are honestly marked as not-yet-existing rather than invented.
+See `CITATION.cff` in this repository for structured citation metadata
+(ORCID and DOI fields to be added once available).
 
 ---
 
 ## License
 
 MIT — see `LICENSE`.
-
----
-
-## Still to do (not README content — repo-assembly steps)
-- Create `SUPPLEMENT.md` from the verified `supplement_draft.md` S1+S2
-  content.
-- Create `CITATION.cff`.
-- Rewrite/replace the currently-stale `README.md` (see FLAG_STATUS.md —
-  it says the analysis "confirms" the finding, which contradicts the
-  paper's locked "consistent with" framing) with this file's content once
-  finalized.
-- Assemble the clean folder against the locked manifest (Mac, you) → push
-  new public repo (GitHub, you) → Zenodo release → DOI → put the real URL
-  into `paper_draft.md`'s Declarations data-availability line (here,
-  together).
