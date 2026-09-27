@@ -1,0 +1,4 @@
+"rep_index","ofv","status","elapsed_sec","timestamp","R_version","nlmixr2_version","rxode2_version","dplyr_version","os","machine","cores_detected","rxCores","rxThreads","RNGkind","OMP_NUM_THREADS","OMP_THREAD_LIMIT","MKL_NUM_THREADS","RXODE2_THREADS"
+1,4006.03963984621,"OK",172.6,"2026-09-27 14:08:43","R version 4.6.1 (2026-06-24)","7.0.1","5.1.5","1.2.1","Darwin","arm64",8,1,1,"Mersenne-Twister|Inversion|Rejection","","","",""
+2,4006.03963984621,"OK",172.3,"2026-09-27 14:11:48","R version 4.6.1 (2026-06-24)","7.0.1","5.1.5","1.2.1","Darwin","arm64",8,1,1,"Mersenne-Twister|Inversion|Rejection","","","",""
+3,4006.03963984621,"OK",170.2,"2026-09-27 14:14:50","R version 4.6.1 (2026-06-24)","7.0.1","5.1.5","1.2.1","Darwin","arm64",8,1,1,"Mersenne-Twister|Inversion|Rejection","","","",""
