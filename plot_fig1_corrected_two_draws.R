@@ -3,12 +3,25 @@
 # Overlays two INDEPENDENT N=30 best-of-N Kss profiles, each ΔOFV relative to
 # its OWN minimum (not pooled, not a shared minimum -- absolute OFVs are not
 # comparable across independent random draws).
+#
+# Pilot dataset is now EQUALIZED (Experiment B, 2026-09-24): the original
+# 35-fit pilot results are combined with weighted_topup_pilot.csv's 12
+# additional fits (identical seeds/grid-points recipe to the reproducibility
+# dataset's own top-up), for 47 fits total -- matching the reproducibility
+# dataset's fit structure. The reproducibility-dataset curve is unchanged.
 # =============================================================================
 suppressPackageStartupMessages({library(dplyr); library(ggplot2)})
 setwd("/Users/jyotheeshwarakshay/pharmacometrics/denosumab-tmdd-qss")
 
 repro <- read.csv("gate_test_N30_Kss1263_repro.csv")
-pilot <- read.csv("multistart_results_corrected_pilot.csv")
+pilot_orig  <- read.csv("multistart_results_corrected_pilot.csv")
+pilot_topup <- read.csv("weighted_topup_pilot.csv")
+
+pilot <- bind_rows(
+  pilot_orig  %>% select(grid_point_index, kss_value, seed, ofv),
+  pilot_topup %>% select(grid_point_index, kss_fixed, seed, ofv) %>%
+    rename(kss_value = kss_fixed)
+)
 
 best_repro <- repro %>%
   group_by(grid_point_index, kss_fixed) %>%
@@ -26,7 +39,7 @@ best_pilot <- pilot %>%
 cat("=== REPRODUCIBILITY dataset (47 fits) -- best-of-N per grid point ===\n")
 print(as.data.frame(best_repro[, c("kss_fixed", "best_ofv", "delta_ofv")]), row.names = FALSE)
 
-cat("\n=== PILOT dataset (35 fits) -- best-of-N per grid point ===\n")
+cat("\n=== PILOT dataset (47 fits, equalized) -- best-of-N per grid point ===\n")
 print(as.data.frame(best_pilot[, c("kss_fixed", "best_ofv", "delta_ofv")]), row.names = FALSE)
 
 cat("\n=== Sanity checks ===\n")
